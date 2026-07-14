@@ -1,0 +1,11 @@
+SELECT 
+    Contract AS Jenis_Kontrak,
+    COUNT(customerID) AS Total_Pelanggan,
+    SUM(CASE WHEN Churn = 'Yes' THEN 1 ELSE 0 END) AS Pelanggan_Kabur,
+    ROUND(SUM(CASE WHEN Churn = 'Yes' THEN 1.0 ELSE 0.0 END) / COUNT(customerID) * 100, 2) AS Persentase_Churn
+FROM 
+    data_telco
+GROUP BY 
+    Contract
+ORDER BY 
+    Persentase_Churn DESC;
